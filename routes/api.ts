@@ -2,6 +2,7 @@ import { Task } from "../models/task";
 
 import express, {Request, Response} from 'express';
 import { TodoCreateRequest } from "../requests/todo/create";
+import { APIResponse } from "../response/api-response";
 
 const router = express.Router();
 export function api() { return router };
@@ -12,7 +13,15 @@ router.get('/todo', async (req: Request, res: Response) => {
 });
 
 router.post('/todo', (req: Request, res: Response) => {
-    let body = <TodoCreateRequest>req.body;
+    let body = <TodoCreateRequest> req.body;
     
-    res.send(body.name);
+    let newTask = Task.build({
+        name: body.name,
+        user: body.username ?? "ben",
+        content: body.content
+    });
+
+    newTask.save();
+
+    res.send(new APIResponse("Success add task " + body.name));
 });
