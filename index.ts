@@ -1,17 +1,18 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var multer = require('multer');
+import express, { Application, Request, Response } from 'express'
+import bodyParser from 'body-parser';
+import multer from 'multer';
+import { api } from './routes/api';
 
 const multerConfig = {
     //specify diskStorage (another option is memory)
     storage: multer.diskStorage({
         //specify destination
-        destination: function (req, file, next) {
+        destination: function (req: Request, file: any, next: any) {
             next(null, './public/upload');
         },
 
         //specify the filename to be unique
-        filename: function (req, file, next) {
+        filename: function (req: Request, file: any, next: any) {
             console.log(file);
             const ext = file.mimetype.split('/')[1];
             //set the file fieldname to a unique name containing the original name, current datetime and the extension.
@@ -20,7 +21,7 @@ const multerConfig = {
     }),
 
     // filter out and prevent non-image files.
-    fileFilter: function (req, file, next) {
+    fileFilter: function (req: Request, file: any, next: any) {
         if (!file) {
             next();
         }
@@ -33,29 +34,31 @@ const multerConfig = {
             next(null, true);
         } else {
             console.log("file not supported")
-            errorReq = true;
             return next();
         }
     }
 };
 
 var upload = multer(multerConfig);
-var app = express();
+var app: Application = express();
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); 
 
 app.use(upload.any());
 app.use(express.static('public')); // Folder public static file
 //setting view engine to ejs
 app.set("view engine", "ejs");
 
-app.get('/', function (req, res) {
+app.get('/', function (req: Request, res: Response) {
     res.render("index");
 });
 
-app.post("/", function (req, res) {
+app.post("/", function (req: Request, res: Response) {
     res.send(req.body);
 });
+
+app.use("/api", api());
 
 app.listen(3000);
