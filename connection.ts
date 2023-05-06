@@ -1,6 +1,4 @@
 import { Sequelize } from "sequelize"
-
-import 'dotenv/config'
 import { Env } from "./env";
 
 export class Database {
@@ -12,7 +10,8 @@ export class Database {
      * @returns {Sequelize}
      */
     public static connection() {
-        let conf = <Env> (<unknown> process.env);
+        let conf = Env.get();
+        
         if (Database.conn == null)
             console.log(conf);
             Database.conn = new Sequelize(conf.DB_NAME, conf.DB_USER, conf.DB_PASSWORD, {
