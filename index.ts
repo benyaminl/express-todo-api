@@ -59,6 +59,6 @@ app.post("/", function (req: Request, res: Response) {
     res.send(req.body);
 });
 
-app.use("/api", api());
+app.use("/api", api);
 
 app.listen(3000);

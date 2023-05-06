@@ -5,7 +5,7 @@ import { TodoCreateRequest } from "../requests/todo/create";
 import { APIResponse } from "../response/api-response";
 
 const router = express.Router();
-export function api() { return router };
+export let api = router;
 
 router.get('/todo', async (req: Request, res: Response) => {
     let data = await Task.findAll();
