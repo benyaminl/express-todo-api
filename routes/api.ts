@@ -8,7 +8,9 @@ const router = express.Router();
 export let api = router;
 
 router.get('/todo', async (req: Request, res: Response) => {
-    let data = await Task.findAll();
+    let data = await Task.findAll({
+        attributes: ["id", "name", "createdAt", "updatedAt"]
+    });
     res.send(data);
 });
 
