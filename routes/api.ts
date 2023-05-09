@@ -58,3 +58,23 @@ router.patch("/todo/:id", async (req: Request, res: Response) => {
     }
     res.send(new APIResponse("Success", true, task));
 });
+
+router.delete("/todo/:id", async (req: Request, res: Response) => {
+    let id = req.params.id;
+    let task = await Task.destroy({
+        where: {
+            id: id
+        }
+    });
+    
+    if (task > 0)
+    {
+        res.send(new APIResponse("Success delete task"));   
+        return;
+    }
+
+    // failed
+    res.statusCode = 400;
+    res.send(new APIResponse("failed delete task", false));   
+
+});
