@@ -25,3 +25,14 @@ router.post('/todo', (req: Request, res: Response) => {
 
     res.send(new APIResponse("Success add task " + body.name));
 });
+
+router.get("/todo/:id", async (req: Request, res: Response) => {
+    let id = req.params.id;
+    let task = await Task.findOne({
+        where: {
+            id: id
+        }
+    });
+
+    res.send(new APIResponse("Success", true, task));
+});
