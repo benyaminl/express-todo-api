@@ -3,6 +3,7 @@ import { Task } from "../models/task";
 import express, {Request, Response} from 'express';
 import { TodoCreateRequest } from "../requests/todo/create";
 import { APIResponse } from "../response/api-response";
+import { TodoUpdateRequest } from "../requests/todo/update";
 
 const router = express.Router();
 export let api = router;
@@ -36,5 +37,24 @@ router.get("/todo/:id", async (req: Request, res: Response) => {
         }
     });
 
+    res.send(new APIResponse("Success", true, task));
+});
+
+router.patch("/todo/:id", async (req: Request, res: Response) => {
+    let body = <TodoUpdateRequest>req.body;
+
+    let id = req.params.id;
+    let task = await Task.findOne({
+        where: {
+            id: id
+        }
+    });
+    
+    if (task != null)
+    {
+        task.content = body.content;
+        task.name = body.name;
+        task?.save();    
+    }
     res.send(new APIResponse("Success", true, task));
 });
