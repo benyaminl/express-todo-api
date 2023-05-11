@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express'
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import { api } from './routes/api';
+import { DefaultStatusMiddleware } from './middleware/default-middleware';
 
 const multerConfig = {
     //specify diskStorage (another option is memory)
@@ -60,5 +61,7 @@ app.post("/", function (req: Request, res: Response) {
 });
 
 app.use("/api", api);
+// Default route at the end when there are no route found
+app.use(DefaultStatusMiddleware);
 
 app.listen(3000);
