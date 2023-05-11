@@ -4,9 +4,12 @@ import express, {Request, Response} from 'express';
 import { TodoCreateRequest } from "../requests/todo/create";
 import { APIResponse } from "../response/api-response";
 import { TodoUpdateRequest } from "../requests/todo/update";
+import { TestMiddleware } from '../middleware/test-middleware';
 
 const router = express.Router();
 export let api = router;
+
+router.use(TestMiddleware); // Set The API
 
 router.get('/todo', async (req: Request, res: Response) => {
     let data = await Task.findAll({
