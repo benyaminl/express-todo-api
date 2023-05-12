@@ -1,0 +1,33 @@
+[
+  {
+    "_id": "4e0a9de6-014a-4153-991d-e260c190ed33",
+    "colId": "history",
+    "containerId": "",
+    "name": "Test",
+    "url": "http://localhost:3000/auth/test",
+    "method": "GET",
+    "sortNum": 0,
+    "created": "2023-05-12T11:10:05.946Z",
+    "modified": "2023-05-12T11:10:05.946Z",
+    "headers": [],
+    "params": [],
+    "auth": {
+      "type": "bearer",
+      "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiYWRtaW4iLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE2ODM4ODg0MDcsImV4cCI6MTY4Mzg5NTYwNywiYXVkIjoiYWRtaW4ifQ.wEFBqDWx3k5yF1fx5U_OVp-Wtjs5deG-X0l7_oY6N4o"
+    },
+    "tests": [
+      {
+        "type": "json-query",
+        "custom": "json.success",
+        "action": "equal",
+        "value": "true"
+      },
+      {
+        "type": "res-code",
+        "custom": "",
+        "action": "equal",
+        "value": "200"
+      }
+    ]
+  }
+]

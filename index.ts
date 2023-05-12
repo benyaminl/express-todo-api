@@ -2,6 +2,7 @@ import express, { Application, Request, Response } from 'express'
 import bodyParser from 'body-parser';
 import multer from 'multer';
 import { api } from './routes/api';
+import { auth } from './routes/auth';
 import { DefaultStatusMiddleware } from './middleware/default-middleware';
 
 const multerConfig = {
@@ -60,7 +61,9 @@ app.post("/", function (req: Request, res: Response) {
     res.send(req.body);
 });
 
+app.use("/auth", auth);
 app.use("/api", api);
+
 // Default route at the end when there are no route found
 app.use(DefaultStatusMiddleware);
 
